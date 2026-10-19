@@ -1,0 +1,27 @@
+name: hermes-plugin-laya
+version: "0.1.0"
+manifest_version: 2
+api_version: 1
+description: "Laya decision tools for Hermes: pick between options, answer yes/no, rank, or run a typed multi-field judgment against the local Laya decision server (127.0.0.1:8765) — natively, no shelling out. Every call returns its decision_id from Laya's auditable decision log."
+author: Darren Foote
+license: MIT
+homepage: https://github.com/Darren-dev141/hermes-plugin-laya
+tags: [decisions, laya, jev, judgment, tools]
+requires_hermes: ">=0.21.5"
+provides_tools:
+  - laya_health
+  - laya_choose
+  - laya_yes_no
+  - laya_rank
+  - laya_judge
+config_schema:
+  url:
+    type: str
+    default: "http://127.0.0.1:8765"
+    label: "Laya server URL"
+    description: "Base URL of the Laya decision server. Laya is loopback-only by design — keep this on localhost or a private tailnet address; never expose Laya on a public interface. The LAYA_URL environment variable overrides this setting."
+  timeout_seconds:
+    type: int
+    default: 30
+    label: "Request timeout (seconds)"
+    description: "Per-request timeout for Laya calls. A warm Laya answers in ~1s; a cold one needs a few seconds for its first inference."
